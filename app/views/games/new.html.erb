@@ -1,0 +1,28 @@
+<h1>Start a new game</h1>
+<%= form_with(model: @game) do |form| %>
+    <% if @game.errors.any? %>
+    <div style="color: red">
+        <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved: </h2>
+        <ul>
+            <% @game.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
+    <div class="field">
+        <%= form.label :player_ids, "Select Players" %>
+        <%= form.collection_check_boxes :player_ids, @players, :id, :name do |b| %>
+            <div class="collection_check_box">
+                <%= b.check_box %>
+                <%= b.label %>
+            </div>
+        <% end %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Create Game" %>
+    </div>
+<% end %>
+        
+

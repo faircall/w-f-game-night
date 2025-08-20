@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get "scores/create"
+  root "games#index"
+  resources :games
+
+  resources :rounds, only: [] do
+    resources :scores, only: [:create]
+  end
+
+  get "games/index"
+  get "games/show"
+  get "games/new"
+  get "games/create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

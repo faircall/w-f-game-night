@@ -1,0 +1,33 @@
+<h2>Career Totals</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td><%= player.career_score || 0 %></td> <%# Show 0 if score is nil %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<div id="games">
+  <% @games.each do |game| %>
+    <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd;">
+      <h3>
+        <%= link_to "Game #{game.id}", game %>
+      </h3>
+      <p>
+        <strong>Players:</strong>
+        <%= game.players.map(&:name).join(', ') %>
+      </p>
+    </div>
+  <% end %>
+</div>

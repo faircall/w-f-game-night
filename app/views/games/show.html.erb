@@ -1,0 +1,59 @@
+<h1>Game #<%= @game.id %> </h1>
+<p>
+    <strong>Players:</strong>
+    <%= @players.map(&:name).join(', ') %>
+</p>
+
+<hr>
+<h3>Leaderboard</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @leaderboard.each do |player, score| %>
+            <tr>
+                <td><%= player.name %> </td>
+                <td><%= score %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<hr>
+
+<% if @current_round %>
+    <h2> Round <%= @current_round.round_number %> </h2>
+    <p>Deal <%= @current_round.round_number + 2 %> cards </p>
+
+    <h3> Enter words: </h3>
+
+    <%= form_with(url: round_scores_path(@current_round), local: true) do |form| %>
+        <% @players.each do |player| %>
+            <div class="field">
+                <%= label_tag "scores[#{player.id}][words]",  "#{player.name}'s Words" %>
+                <%= text_field_tag "scores[#{player.id}][words]"  %>                
+            </div>
+
+            <div class="field">
+                <%= label_tag "scores[#{player.id}][cards]",  "#{player.name}'s Spare Cards" %>
+                <%= text_field_tag "scores[#{player.id}][cards]"  %>                
+            </div>
+            <br>
+        <% end %>
+
+        <div class="actions">
+            <%= form.submit "Submit Scores For Round #{@current_round.round_number}" %>            
+        </div>
+    <% end %>
+<% else %>
+    <p>Game has not started, or has already finished </p>
+<% end %>
+
+<hr>
+<p>
+    <%= link_to 'End Game Early', @game, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to end this game?'}, style: "color: red;" %>
+</p>

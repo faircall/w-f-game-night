@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+puts "Creating players..."
+
+Player.find_or_create_by!(name: "Cooper")
+Player.find_or_create_by!(name: "Elliot")
+Player.find_or_create_by!(name: "Rie")
+Player.find_or_create_by!(name: "Hugo")
+Player.find_or_create_by!(name: "Josephine")
+Player.find_or_create_by!(name: "Brian")
+
+puts "Players created!"
+
