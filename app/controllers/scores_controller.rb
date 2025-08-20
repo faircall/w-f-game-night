@@ -18,8 +18,19 @@ class ScoresController < ApplicationController
       )
     end
 
+    apply_round_bonuses(@round)
+
     @round.game.create_next_round!
 
     redirect_to @round.game, notice: "Round complete! Onto the next one"      
   end
+
+  private 
+  
+  def apply_round_bonuses round
+
+    
+
+  end 
+
 end

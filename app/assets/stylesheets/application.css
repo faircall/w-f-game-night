@@ -8,3 +8,15 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+.game-container {
+  display: flex;
+  gap: 30px; /* Adds space between the columns */
+}
+
+.leaderboard-column {
+  flex: 1; /* Each column will take up equal space */
+}
+
+.round-column {
+  flex: 2; /* This column will be twice as wide as the other */
+}
