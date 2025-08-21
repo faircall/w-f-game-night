@@ -22,7 +22,7 @@
   <% @games.each do |game| %>
     <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd;">
       <h3>
-        <%= link_to "Game #{game.id}", game %>
+        <%= link_to "Game on #{game.created_at.strftime('%b %d, %Y')}", game %>
       </h3>
       <p>
         <strong>Players:</strong>
