@@ -18,10 +18,15 @@ class ScoresController < ApplicationController
       )
     end
 
-    apply_round_bonuses(@round)
+    final_scores = apply_round_bonuses(@round)
 
     if @round.round_number == 8    
+      final_scores.each do |score|
+        score.player.increment!(:career_score, score.value)
+      end
+
       redirect_to @round.game, notice: "Final round scored! Game Over."
+      
     else    
       @round.game.create_next_round!
       redirect_to @round.game, notice: "Round scored! On to the next one."
@@ -51,7 +56,7 @@ class ScoresController < ApplicationController
       new_score = winner.value + 10 # Calculate the new score
       winner.update!(value: new_score, bonus_info: "Most Words! (+10)")
     end
-    
+    return scores
   end 
 
 end

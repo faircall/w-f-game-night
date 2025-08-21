@@ -1,7 +1,21 @@
 
 <div class="game-container">
 <div class="scoreboard-column">    
-    <% @completed_rounds.each do |round| %>
+    <div class="scroeboard-round">
+        <h4>Total Score</h4>
+        <table>
+            <tbody>
+            <% @running_totals.sort_by { |player, _score| player.name }.each do |player, total| %>
+                <tr>
+                    <td><strong><%= player.name %></strong></td>
+                    <td><strong><%= total %></strong></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+
+    <% @completed_rounds.reverse.each do |round| %>
     <div class="scoreboard-round">    
     <h4>Round <%= round.round_number %></h4>
     <table>
@@ -32,21 +46,7 @@
     </table>
     </div>
     <% end %>
-
-
-    <div class="scroeboard-round">
-        <h4>Total Score</h4>
-        <table>
-            <tbody>
-            <% @running_totals.sort_by { |player, _score| player.name }.each do |player, total| %>
-                <tr>
-                    <td><strong><%= player.name %></strong></td>
-                    <td><strong><%= total %></strong></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </table>
-    </div>
+    
 </div>
 
 <div class="round-column">
