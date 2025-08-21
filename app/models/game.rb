@@ -14,4 +14,8 @@ class Game < ApplicationRecord
 
         rounds.create!(round_number: next_number)
     end
+
+    def game_over?    
+        rounds.count == 8 && rounds.last.scores.any?
+    end
 end

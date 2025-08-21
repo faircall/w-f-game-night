@@ -1,11 +1,11 @@
 <%# app/views/layouts/_navigation.html.erb %>
-<nav style="background-color: #f2f2f2; padding: 10px; margin-bottom: 20px; border-bottom: 1px solid #ccc;">
-  <%= link_to 'Quiddler Scoreboard', root_path, style: "font-weight: bold; text-decoration: none; color: #333;" %>
+<nav>
+  <%= link_to 'Willis Family Game Night', root_path, class: "nav-brand" %>
 
-  <span style="float: right;">
-    <%# Show 'New Game' button only on the home page %>
+  <span class="nav-actions">
     <% if current_page?(root_path) %>
-      <%= link_to 'New Game', new_game_path, style: "padding: 5px 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;" %>
+      <%# Add a class to the link to style it as a button %>
+      <%= link_to 'New Game', new_game_path, class: "button" %>
     <% end %>
   </span>
 </nav>

@@ -8,15 +8,67 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-.game-container {
+
+tbody:nth-child(odd) {
+    background-color: transparent;
+}
+
+nav {
   display: flex;
-  gap: 30px; /* Adds space between the columns */
+  justify-content: space-between;
+  align-items: center;
+  background-color: #212121;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-.leaderboard-column {
-  flex: 1; /* Each column will take up equal space */
+/* --- Navigation Brand/Logo --- */
+.nav-brand {
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  font-size: 2.25em;
 }
 
-.round-column {
-  flex: 2; /* This column will be twice as wide as the other */
+/* --- General Button Styling (re-usable) --- */
+.button {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #28a745; /* Green */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #218838;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px; 
+  align-items: start;
+}
+
+.scoreboard-round {
+    margin-bottom: 20px;
+    border: 1px solid #000;
+    border-radius: 0px;
+    background-color: #fff;
+}
+
+.scoreboard-round h4 {
+    margin: 0;
+    padding: 1px;
+    background-color: #000;
+    border-bottom: 1px solid #eee;
+}
+
+.scoreboard-round table {
+    margin-bottom: 0;    
+    box-shadow: none;
 }

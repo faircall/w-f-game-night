@@ -1,6 +1,6 @@
 class Round < ApplicationRecord
   belongs_to :game
-  has_many :scores
+  has_many :scores, dependent: :destroy
 
   def complete?
     scores.count == game.players.count
@@ -12,7 +12,7 @@ class Round < ApplicationRecord
     #TODO (Cooper) : find and apply bonuses
 
     game.create_next_round!
-    
+
     true
   end
 end

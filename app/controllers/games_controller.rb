@@ -2,11 +2,7 @@ class GamesController < ApplicationController
   def index
     @games = Game.all.order(created_at: :desc)
     @players = Player.all.order(career_score: :desc)
-  end
-
-  def show
-    @game = Game.find(params[:id])
-  end
+  end  
 
   def new
     @game = Game.new
@@ -40,16 +36,22 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @players = @game.players.order(:name)
-    @current_round = @game.rounds.order(round_number: :desc).first
 
-    @leaderboard = @game.players.index_with { |player| 0 }
-    @game.rounds.includes(:scores).each do |round|
-      round.scores.each do |score|
-        @leaderboard[score.player] += score.value if score.value.present?
-      end
+    if @game.game_over?
+      @completed_rounds = @game.rounds.includes(scores: :player).order(:round_number)
+      @current_round = nil
+    else 
+      @all_rounds = @game.rounds.includes(scores: :player).order(:round_number)
+      @current_round = @all_rounds.last
+      @completed_rounds = @all_rounds.reject { |r| r == @current_round}
     end
 
-    @leaderboard = @leaderboard.sort_by { |_player, score| -score}.to_h
+    @running_totals = Hash.new(0)
+    (@completed_rounds + [@current_round]).compact.each do |round|    
+      round.scores.each do |score|
+        @running_totals[score.player] += score.value if score.value.present?
+      end
+    end    
   end 
 
   private 

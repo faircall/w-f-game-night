@@ -5,7 +5,7 @@ class Score < ApplicationRecord
   serialize :words, type: Array, coder: YAML  
   serialize :cards, type: Array, coder: YAML  
 
-  before_save :calculate_value
+  before_create :calculate_value
 
   private
 
@@ -23,32 +23,34 @@ class Score < ApplicationRecord
 
   def letter_value letter
     case letter.upcase
-    when 'Q', 'Z'
-      10
-    when 'J', 'X'
-      8
-    when 'K'
-      6
-    when 'F', 'H', 'V', 'W', 'Y'
-      5
-    when 'B', 'C', 'M', 'P'
-      4
-    when 'D', 'G', 'L'
-      3
-    when 'N', 'R', 'S', 'T', 'U'
-      2
     when 'A', 'E', 'I', 'O'
-      1
-    when 'QU'
-      9
-    when 'ER'
+      2
+    when 'L', 'S', 'T'
+      3
+    when 'U', 'Y'
+      4
+    when 'D', 'M', 'N', 'R'
+      5
+    when 'F', 'G', 'P'
+      6
+    when 'H', 'ER', 'IN'
       7
-    when 'CL'
-      10
-    when 'IN'
-      7
-    when 'TH'
-      9
+    when 'B', 'C', 'K'
+      8
+    when 'QU', 'TH'
+      9    
+    when 'W', 'CL'
+      10        
+    when 'V'
+      11
+    when 'X'
+      12
+    when 'J'
+      13
+    when 'Z'
+      14
+    when 'Q'
+      15
     else 
       0
     end

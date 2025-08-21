@@ -1,22 +1,52 @@
 
 <div class="game-container">
-<div class="leaderboard-column">    
+<div class="scoreboard-column">    
+    <% @completed_rounds.each do |round| %>
+    <div class="scoreboard-round">    
+    <h4>Round <%= round.round_number %></h4>
     <table>
         <thead>
             <tr>
                 <th>Player</th>
+                <th>Words</th>
+                <th>Unused</th>
                 <th>Score</th>
             </tr>
         </thead>
         <tbody>
-            <% @leaderboard.each do |player, score| %>
-                <tr>
-                    <td><%= player.name %> </td>
-                    <td><%= score %> </td>
+            <% round.scores.sort_by {|s| s.player.name }.each do |score| %>
+                <tr style="background-color: #f2f2f2; color: black;">
+                    <td><%= score.player.name %> </td>
+                    <td><%= score.words.join(', ') %> </td>
+                    <td><%= score.cards.join(', ') %> </td>
+                    <td><%= score.value %> 
+                    <% if score.bonus_info.present? %> 
+                        <small style="color: green; font-weight: bold;">
+                            <%= score.bonus_info %> 
+                        </small>
+                    <% end %>
+                    </td>
                 </tr>
             <% end %>
         </tbody>
     </table>
+    </div>
+    <% end %>
+
+
+    <div class="scroeboard-round">
+        <h4>Total Score</h4>
+        <table>
+            <tbody>
+            <% @running_totals.sort_by { |player, _score| player.name }.each do |player, total| %>
+                <tr>
+                    <td><strong><%= player.name %></strong></td>
+                    <td><strong><%= total %></strong></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="round-column">
@@ -44,7 +74,9 @@
             </div>
         <% end %>
     <% else %>
-        <p>Game has not started, or has already finished </p>
+    <h2>Game Over!</h2>
+        <p>This game has finished. Check the final scores on the leaderboard.</p>
+        <%= link_to 'Start a New Game', new_game_path, class: "button" %>        
     <% end %>
 </div>
 </div>
